@@ -7,6 +7,12 @@ NRPS-motif-Finder is a tool for standardization of Non-ribosomal peptide synthet
 
 <img src="https://github.com/RuolinHe/NRPS-motif-Finder-matlab-version/assets/76482251/a0358bd6-3431-4bda-9477-20898debc41a" alt="logo" width="388.9" height="200">
 
+***
+
+**Note**: NRPS-motif-Finder is **the only one** that can classify **all fungal** C domain subtypes so far!
+
+***
+
 # Supported domains and motifs
 Adenylation (A) domain has 12 domain: Aalpha, A1-A5, G-motif, A6-A10. Among them, Aalpha and G-motif were two new motifs proposed in [our paper](https://doi.org/10.1371/journal.pcbi.1011100).
 
