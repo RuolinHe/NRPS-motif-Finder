@@ -21,7 +21,7 @@ Epimerization (E) domain has 7 domains: E1-E7.
 # C domain subtype
 One of the most important features is that NRPS-motif-Finder supports the full subtype classification of C domain.
 
-<img src="https://github.com/RuolinHe/NRPS-motif-Finder-matlab-version/assets/76482251/dfc1f54c-b746-4dc1-b9ae-ddf7e0f1b7ec" alt="C_all_tree7" width="839.7" height="750">
+<img src="https://github.com/RuolinHe/NRPS-motif-Finder/assets/76482251/6fef2845-67aa-44f6-8f7d-7638805b45c9" alt="C_all_tree7" width="839.7" height="750">
 
 **Maximum-likelihood phylogenetic tree of the condensation domain superfamily.**
 
