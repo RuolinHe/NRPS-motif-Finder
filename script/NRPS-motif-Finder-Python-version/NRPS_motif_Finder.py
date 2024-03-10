@@ -180,7 +180,7 @@ TE_motif_list = mat_file['TE_motif_list']
 TE_motif_name = list(range(1, len(TE_motif_list)+1))
 
 # 2023/2/4 更新了C的subtype
-referCE_dtype_str = ['LCL','SgcC5','DCL','Starter','Cyc','Dual','Cglyc','Hybrid','modAA','CT','CT-DCL','CT-LCL','FUM14','It','I','bL','PS','X','E']
+referCE_dtype_str = ['LCL','SgcC5','DCL','Starter','Cyc','Dual','Cglyc','Hybrid','modAA','CT','CT-DCL','CT-LCL','FUM14','LCL-A','I','bL','PS','X','E']
 referCE_motif_list = [mat_file['referCE_motif_list'][i][0] for i in range(len(mat_file['referCE_motif_list']))]
 referCE_seq = [mat_file['referCE_seq'][i][0][0][0][1][0] for i in range(len(mat_file['referCE_seq']))]
 
