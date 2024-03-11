@@ -1,22 +1,25 @@
 function [result] = Find_NRPS_motif_module_pfam_HRL(seq,Pfam_database_path,reference_motif_path,new_motif,loop_S_code_judge,length_threshold,length_threshold_TE)
-%Find_NRPS_motif_module_pfam_HRL20221221 find CATETe domain in the NRPS sequences and mark motifs
+%Find_NRPS_motif_module_pfam_HRL find CATETe domain in the NRPS sequences and mark motifs
 %   Note: No blanks in your matltab script path, Pfam_database_path and reference_motif_path
 %   Note: 'X' in your sequence will be removed.
-%   depend local hmmer3 and a folder with reference sequence and motif information
-%   work for C/A/T/E/Te
+%   Requirement: local hmmer3 and a folder with reference sequence and motif information
+%   This function works for C/A/T/E/Te
 %   motif number: C:7 A:10(+ 0~2) T:1(+ 0~1) E:7 Te:1  details see reference_motif/reference_motif.xlsx
 %   domain id: C:1 A:2 T:3 E:4 Te:5
 %   input:seq is the reuslt of fastaread (note: Header of sequence can't
 %   strat with blank, that is, ' ')
 %       Pfam_database_path is path of Pfam database constructed by hmmpress
-%       reference_motif_path is the path of reference motif file folder
-%       new_motif: {'Aalpha','G','Talpha'}
+%       (User can set default value of Pfam_database_path in the function.)
+%       reference_motif_path is the path of reference motif file folder.
+%       (User can set default value of reference_motif_path in the
+%       function.)
+%       new_motif: {'Aalpha','G','Talpha'}. (default:{}).
 %       loop_S_code_judge: 1=calculate loop length, loop group and return
-%       loop sequence and S codes.
-%       length_threshold: used in hmmer scan for C/A/T domain.
-%       (default=0.6) User can reduce the threshold, if miss some known domains.
-%       length_threshold_TE: used in hmmer scan for TE domain.
-%       (default=0.5) User can reduce the threshold, if miss some known domains.
+%       loop sequence and S codes.(default:0)
+%       length_threshold: used in hmmer scan for C/A/T domain. Value is in the range of 0~1.
+%       (default:0.6) User can reduce the threshold, if miss some known domains.
+%       length_threshold_TE: used in hmmer scan for TE domain. Value is in the range of 0~1.
+%       (default:0.5) User can reduce the threshold, if miss some known domains.
 %   result: a struct
 %       Header:the Header in seq
 %       domain_list:show the domain compositions of input NRPS sequence
@@ -33,6 +36,8 @@ function [result] = Find_NRPS_motif_module_pfam_HRL(seq,Pfam_database_path,refer
 %       loop length: length of 5 loops:
 %           [A3-A4),[A4,S4),[S4,S6),[S6,A5),[A5,G)
 %       loop_seq: sequence of 5 loops
+%       S_code: Stachelhaus code proposed by Torsten Stachelhaus in 1999
+%       loop_group: There are 5 loop groups. Each row is one A domain
 %       note: -/*/X in the sequence will be removed, and the index in
 %       index_mat will be influenced (shorter than the original)
 %       if domain is incomplete, but the length is more than 0.6* full
@@ -41,19 +46,25 @@ function [result] = Find_NRPS_motif_module_pfam_HRL(seq,Pfam_database_path,refer
 %%
 % Default: length_threshold=0.6, length_threshold_TE=0.5;
 % If miss some known domain, user can reduce the threshold
-if isempty(length_threshold)
+if nargin<7||isempty(length_threshold)
     length_threshold=0.6;% a relaxed thresholds for domain detection by hmmer3
 end
-if isempty(length_threshold_TE)
+if nargin<6||isempty(length_threshold_TE)
     length_threshold_TE=0.5; % 0.44
 end
-if isempty(Pfam_database_path)
-    Pfam_database_path='D:/cygwin64/home/74005/Pfam';
-%     Pfam_database_path='/storage/disk2/SYZ/program/hmm';
+if nargin<5||isempty(loop_S_code_judge)
+    loop_S_code_judge=0;
 end
-if isempty(reference_motif_path)
+if nargin<4||isempty(new_motif)
+    new_motif={};
+end
+if nargin<3||isempty(reference_motif_path)
     reference_motif_path='D:/Shared with me/MATLAB_toolbox/reference_motif';
 %     reference_motif_path='/storage/disk2/SM_in_genome/analysis/tools_1025/reference_motif';
+end
+if nargin<2||isempty(Pfam_database_path)
+    Pfam_database_path='D:/cygwin64/home/74005/Pfam';
+%     Pfam_database_path='/storage/disk2/SYZ/program/hmm';
 end
 result=[];
 for i = 1:length(seq)
