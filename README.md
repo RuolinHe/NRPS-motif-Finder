@@ -24,7 +24,8 @@ Thioesterase (TE) domain has 1 domain: TE1.
 
 Epimerization (E) domain has 7 domains: E1-E7.
 
-# C domain subtype
+# Featured function
+## C domain subtype classification
 One of the most important features is that NRPS-motif-Finder supports the full subtype classification of C domain.
 
 <img src="https://github.com/RuolinHe/NRPS-motif-Finder/assets/76482251/6fef2845-67aa-44f6-8f7d-7638805b45c9" alt="C_all_tree7" width="839.7" height="750">
@@ -34,6 +35,19 @@ One of the most important features is that NRPS-motif-Finder supports the full s
 Subtype classification and sequences are described in the main text and the Method. Different subtypes are indicated by colors, with subtypes exclusive to fungi marked by underlines, and subtypes found predominantly in bacteria marked by asterisks. This tree is rooted, taking papA and WES as outgroups(black shading). L-clade and D-clade are indicated by blue and red shading, respectively.
 
 **Note:** In the NRPS-motif-Finder result, E domain is not considered to be a kind of C domain subtype. And E domain has 7 motifs while C domain has 10 motifs.
+
+## A domain loop group classification
+Loop length and loop group are proposed in [our paper](https://doi.org/10.1371/journal.pcbi.1011100). And we found loop group is related with A domain substrate specificity.
+
+![Fig3_20230113](https://github.com/RuolinHe/NRPS-motif-Finder/assets/76482251/b340f9fd-a0ae-42e9-9c8c-ecda58ac3c18)
+
+**The specificity-conferring code of the A domain is correlated with loop length and phylogeny**
+
+**A.** SCA of 2,636 A domain sequences, together with their substrate specificities attached to the last column of the multiple sequence alignment. Six sectors with a high contribution from the substrate column (>0.05, the size of points on the left scales the substrate’s contribution to the sector, see Method for details) are sorted by their eigenvalues. The size of points scales its contribution to the sector. Orange bars mark the A domain motifs from A1 to A8. The start and end of the five loop regions are marked by black and green dotted lines, respectively. S4 and S6 are the 4th and 6th of the specificity-conferring codes. G is the G-motif.
+
+**B.** Distance matrix of A domain. Upper right on the heatmap is the Euclidean distance of the loop length as a 5-element vector. Lower left on the heatmap is the sequence distance of the A domain. The matrix is sorted by the substrate specificity followed by the loop length group. Substrates, groups of loop length, and phylum of these A domains, are shown by colors in sidebars.
+
+**C.** Example showing that A domains conferring identical substrate exhibit distinct specificity-conferring codes, when they are categorized into different loop-length-groups. Phylum composition in each group is shown in the pie chart.
 
 # How to use
 Please see [Wiki](https://github.com/RuolinHe/NRPS-motif-Finder/wiki)https://github.com/RuolinHe/NRPS-motif-Finder/wiki page.
