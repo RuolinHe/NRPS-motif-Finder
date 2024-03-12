@@ -50,7 +50,7 @@ except getopt.GetoptError:
 	sys.exit()
 for opt, arg in opts:
 	if opt == '-h':
-		print('Find_motif_HRL.py -i <inputfile> -o <outputfile> -p <processid> -G <1 or 0> -A <1 or 0> -T <1 or 0> -length_threshold <length_threshold 0.6> -length_threshold_TE <length_threshold_TE 0.5>')
+		print('python Find_motif_HRL.py -i <inputfile> -o <outputfile> -p <processid> -G <1 or 0> -A <1 or 0> -T <1 or 0> -length_threshold <length_threshold 0.6> -length_threshold_TE <length_threshold_TE 0.5>')
 		sys.exit()
 	elif opt in ("--i"):
 		inputfile = arg
