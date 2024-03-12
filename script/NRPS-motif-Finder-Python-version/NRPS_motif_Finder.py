@@ -73,7 +73,8 @@ for opt, arg in opts:
 
 # source_path = "/Users/chenhaoran/code/rawpool/biology/python/NRPSMotif/"
 
-run_default_path = "/data/services/biology/python/NRPSMotif/"
+# run_default_path = "/data/services/biology/python/NRPSMotif/"
+run_default_path = "./"
 source_path = ""
 
 os.chdir(run_default_path)
