@@ -7,7 +7,7 @@ function [result] = Find_NRPS_motif_module_pfam_HRL(seq,Pfam_database_path,refer
 %   motif number: C:7 A:10(+ 0~2) T:1(+ 0~1) E:7 Te:1  details see reference_motif/reference_motif.xlsx
 %   domain id: C:1 A:2 T:3 E:4 Te:5
 %   input:seq is the reuslt of fastaread (note: Header of sequence can't
-%   strat with blank, that is, ' ')
+%   strat with blank, that is, ' '. And the headers of seq must be different!!!)
 %       Pfam_database_path is path of Pfam database constructed by hmmpress
 %       (User can set default value of Pfam_database_path in the function.)
 %       reference_motif_path is the path of reference motif file folder.
