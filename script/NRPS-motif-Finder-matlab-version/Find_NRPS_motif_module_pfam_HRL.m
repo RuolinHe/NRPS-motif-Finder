@@ -166,7 +166,7 @@ for ii = 1:length(seq) % for each sequence
     for k = 1:length(region)
         i = region(k);
 %         if ((str2double(hmm_r(i,21))-str2double(hmm_r(i,20))+1)>length_threshold*str2double(hmm_r(i,3)))||(strcmp(hmm_r{i,1},'Thioesterase')&&(str2double(hmm_r(i,21))-str2double(hmm_r(i,20))+1)>0.5*str2double(hmm_r(i,3))) % the length of matching shouldn't be too short (>length_threshold*domain_length)
-        if ((str2double(hmm_r(i,17))-str2double(hmm_r(i,16))+1)>length_threshold*str2double(hmm_r(i,3)))||(strcmp(hmm_r{i,1},'Thioesterase')&&(str2double(hmm_r(i,17))-str2double(hmm_r(i,16))+1)>length_threshold_TE*str2double(hmm_r(i,3))) % the length of matching shouldn't be too short (>length_threshold*domain_length)
+        if (~strcmp(hmm_r{i,1},'Thioesterase')&&((str2double(hmm_r(i,17))-str2double(hmm_r(i,16))+1)>length_threshold*str2double(hmm_r(i,3))))||(strcmp(hmm_r{i,1},'Thioesterase')&&(str2double(hmm_r(i,17))-str2double(hmm_r(i,16))+1)>length_threshold_TE*str2double(hmm_r(i,3))) % the length of matching shouldn't be too short (>length_threshold*domain_length)
             % a more relaxed threshold for Te domain, here is 0.5
             if strcmp(hmm_r{i,1},'Condensation')
                 domain_list=[domain_list;1];
