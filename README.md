@@ -74,7 +74,7 @@ In this large dataset, we analyzed 83,489 C domains, 95,582 A domains, 86,688 T 
 Please see [Wiki](https://github.com/RuolinHe/NRPS-motif-Finder/wiki) page.
 
 # How to cite
-If you have found antiSMASH useful, please [cite us](https://doi.org/10.1371/journal.pcbi.1011100).
+If you have found NRPS-motif-Finder useful, please [cite us](https://doi.org/10.1371/journal.pcbi.1011100).
 
 # License
 The analysis codes of this work are licensed under a [GNU General Public License-3.0 license](https://github.com/RuolinHe/NRPS-motif-Finder#GPL-3.0-1-ov-file).
