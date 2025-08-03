@@ -50,7 +50,7 @@ except getopt.GetoptError:
 	sys.exit()
 for opt, arg in opts:
 	if opt == '-h':
-		print('python Find_motif_HRL.py -i <inputfile> -o <outputfile> -p <processid> -G <1 or 0> -A <1 or 0> -T <1 or 0> -length_threshold <length_threshold 0.6> -length_threshold_TE <length_threshold_TE 0.5>')
+		print('Find_motif_HRL.py -i <inputfile> -o <outputfile> -p <processid> -G <1 or 0> -A <1 or 0> -T <1 or 0> -length_threshold <length_threshold 0.6> -length_threshold_TE <length_threshold_TE 0.5>')
 		sys.exit()
 	elif opt in ("--i"):
 		inputfile = arg
@@ -73,8 +73,7 @@ for opt, arg in opts:
 
 # source_path = "/Users/chenhaoran/code/rawpool/biology/python/NRPSMotif/"
 
-# run_default_path = "/data/services/biology/python/NRPSMotif/"
-run_default_path = "./"
+run_default_path = "/data/services/biology/python/NRPSMotif/"
 source_path = ""
 
 os.chdir(run_default_path)
@@ -142,7 +141,7 @@ def find_motif(seq, ref_seq, motif_list, list_sorted, i_, seqstart):
 		else:
 			compared_end = list_sorted.loc[i_+1]['start']
 		if (int(loc_start) <= -1) or (int(loc_start2) == int(loc_end2)) or (int(loc_end2) >= compared_end):
-			loc_motif_list.append([np.array([np.nan]), np.array([np.nan])])
+			loc_motif_list.append([np.array([[np.nan]]), np.array([[np.nan]])])
 		else:
 			loc_motif_list.append([loc_start2, loc_end2])
 	return(loc_motif_list)
@@ -341,6 +340,7 @@ for seqrecord in seqrecords:
 	result_table = pd.DataFrame(columns=['start', 'end', 'domain', 'motif_seq',
 								'motif_name', 'inter_motif_seq', 'C_subtype', 'C_score','loop_length', 'loop_seq', 'loop_group', 'S_code'])
 	last_domain_end = 1
+	last_domain_nan_flag = 0
 	for i in range(len(list_sorted)):
 		if i == 0 or i == len(list_sorted)-1:
 			continue
@@ -362,7 +362,9 @@ for seqrecord in seqrecords:
 			else:
 				start = list_sorted.loc[i]['start']
 				end = list_sorted.loc[i]['end']
-
+		if last_domain_nan_flag:
+			last_domain_end = start
+			last_domain_nan_flag = 0
 		# given seq and domain type, identity motif
 		seq = seqrecord[start-1:end].seq
 
@@ -440,8 +442,8 @@ for seqrecord in seqrecords:
 			C_subtype = '-'
 			C_score = '-'
 
-		for i, motif_pos in enumerate(motifs):
-			if i == 0:
+		for i_, motif_pos in enumerate(motifs):
+			if i_ == 0:
 				if np.isnan(motifs.flatten()[0]):
 					temp_result = [last_domain_end, motifs.flatten(
 					)[0]-1, domain_name, '', 'inter', '', C_subtype, C_score, loc_loop_length, loc_loop_seq, loop_group, loc_S_code]
@@ -451,8 +453,8 @@ for seqrecord in seqrecords:
 				result_table.loc[len(result_table.index)] = temp_result
 
 			# inter 不包前后
-			if i in list(range(1, len(motifs))):
-				j = i*2
+			if i_ in list(range(1, len(motifs))):
+				j = i_*2
 				if np.isnan(motifs.flatten()[j-1]) or np.isnan(motifs.flatten()[j]):
 					temp_result = [motifs.flatten()[j-1]+1, motifs.flatten()[j]-1, domain_name,
 								   '', 'inter', '', C_subtype, C_score, loc_loop_length, loc_loop_seq, loop_group, loc_S_code]
@@ -463,16 +465,18 @@ for seqrecord in seqrecords:
 				result_table.loc[len(result_table.index)] = temp_result
 
 			if np.isnan(motif_pos[0]):
-				temp_result = [motif_pos[0], motif_pos[1], domain_name, '', motifs_name[i],
+				temp_result = [motif_pos[0], motif_pos[1], domain_name, '', motifs_name[i_],
 							   '', C_subtype, C_score, loc_loop_length, loc_loop_seq, loop_group, loc_S_code]
 			else:
 				temp_result = [motif_pos[0], motif_pos[1], domain_name, str(seqrecord[int(motif_pos[0])-1:int(
-					motif_pos[1])].seq), motifs_name[i], '', C_subtype, C_score, loc_loop_length, loc_loop_seq, loop_group, loc_S_code]
+					motif_pos[1])].seq), motifs_name[i_], '', C_subtype, C_score, loc_loop_length, loc_loop_seq, loop_group, loc_S_code]
 
 				result_table.loc[len(result_table.index)] = temp_result
 
-			if i == len(motifs)-1:
-				last_domain_end = motifs.flatten()[i*2+1]+1
+			if i_ == len(motifs)-1:
+				last_domain_end = motifs.flatten()[i_*2+1]+1
+				if np.isnan(last_domain_end):
+					last_domain_nan_flag = 1
 
 	test_df = result_table.copy(deep=True)
 	index_ = -1
